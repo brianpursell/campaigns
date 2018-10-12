@@ -2,4 +2,4 @@
 In a separate terminal window run `mongod`
 
 ## Install dependencies
-Run `npm run setup`
+From project root run `npm run setup`
