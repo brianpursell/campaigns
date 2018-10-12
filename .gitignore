@@ -1,1 +1,3 @@
 node_modules/
+/csv_api/uploads/*
+!/csv_api/uploads/seed.csv
