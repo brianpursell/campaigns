@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  "mongodb://localhost/users",
+  "mongodb://localhost/campaigns",
   { useNewUrlParser: true }
 );
 
@@ -14,10 +14,10 @@ mongoose.model("User", {
   company_size: String
 });
 
-const User = mongoose.model("User");
-
 // clear users for dev env
 if (process.env.NODE_ENV === "development") {
+  const User = mongoose.model("User");
+
   User.deleteMany({}, () => {
     console.log("USERS CLEARED");
   });
