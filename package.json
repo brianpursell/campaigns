@@ -1,0 +1,15 @@
+{
+  "name": "proof",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup": "npm i csv_api/",
+    "start": "node csv_api/server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv_api": "file:csv_api"
+  }
+}
