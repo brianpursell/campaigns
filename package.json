@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "npm i csv_api/",
     "start": "NODE_ENV=development node csv_api/server"
   },
   "author": "",
