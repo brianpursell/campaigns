@@ -16,9 +16,11 @@ mongoose.model("User", {
 
 const User = mongoose.model("User");
 
-// clear users
-User.deleteMany({}, () => {
-  console.log("USERS CLEARED");
-});
+// clear users for dev env
+if (process.env.NODE_ENV === "development") {
+  User.deleteMany({}, () => {
+    console.log("USERS CLEARED");
+  });
+}
 
 module.exports = mongoose;
