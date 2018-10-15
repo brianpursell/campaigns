@@ -7,7 +7,11 @@ const saveNewUsers = newUsers => {
   const User = db.model("User");
 
   newUsers.forEach(user => {
-    new User(user).save();
+    User.register(new User(user), user.password || '1234', function(err) {
+      if (err) {
+        console.error('error saving user', err);
+      }
+    });
   });
 };
 
@@ -25,6 +29,17 @@ module.exports = (dir, headerRowIndex) => {
   fs.readdir(dir, (err, csvFiles) => {
     csvFiles.forEach(filename => {
       const done = filename.split(".")[0] === "done";
+
+      // reset seed file
+      if (filename === 'done.seed.csv') {
+        const currentFilename = path.join(dir, filename);
+        const newFilename = path.join(dir, 'seed.csv');
+        fs.rename(currentFilename, newFilename, err => {
+          if (err) {
+            console.error(err);
+          }
+        })
+      }
 
       if (!done) {
         csvToJson(filename, dir, headerRowIndex)

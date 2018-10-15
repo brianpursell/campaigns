@@ -16,6 +16,10 @@ const jsonify = (header, body) => {
       obj[header[i]] = val;
     });
 
+    if (!obj.hasOwnProperty('username')) {
+      obj.username = `user${obj.user_id}`;
+    }
+
     return obj;
   });
 };

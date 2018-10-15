@@ -1,26 +1,27 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
+const Schema = mongoose.Schema;
 
 mongoose.connect(
   "mongodb://localhost/campaigns",
   { useNewUrlParser: true }
 );
 
-mongoose.model("User", {
-  name: String,
-  user_id: Number,
+const userSchema = new Schema({
+  username: { type : String , unique : true, required : true },
+  user_id: { type : Number , unique : true, required : true },
   ip: String,
   geo: String,
   industry: String,
   company_size: String
 });
 
-// clear users for dev env
-if (process.env.NODE_ENV === "development") {
-  const User = mongoose.model("User");
+userSchema.plugin(passportLocalMongoose);
 
-  User.deleteMany({}, () => {
-    console.log("USERS CLEARED");
-  });
-}
+const User = mongoose.model("User", userSchema);
+
+User.deleteMany({}, () => {
+  console.log("USERS CLEARED");
+});
 
 module.exports = mongoose;

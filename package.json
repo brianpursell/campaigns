@@ -4,11 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node csv_api/server"
+    "start": "NODE_ENV=development node server",
+    "start-csv": "node csv_api/server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csv_api": "file:csv_api"
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "csv_api": "file:csv_api",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1"
   }
 }
