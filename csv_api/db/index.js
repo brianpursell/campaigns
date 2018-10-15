@@ -8,8 +8,8 @@ mongoose.connect(
 );
 
 const userSchema = new Schema({
-  username: { type : String , unique : true, required : true },
-  user_id: { type : Number , unique : true, required : true },
+  username: { type: String, unique: true, required: true },
+  user_id: { type: Number, unique: true, required: true },
   ip: String,
   geo: String,
   industry: String,
@@ -20,8 +20,10 @@ userSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model("User", userSchema);
 
-User.deleteMany({}, () => {
-  console.log("USERS CLEARED");
-});
+if (process.env.NODE_ENV === "development") {
+  User.deleteMany({}, () => {
+    console.log("USERS CLEARED");
+  });
+}
 
 module.exports = mongoose;

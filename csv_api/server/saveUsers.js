@@ -7,9 +7,9 @@ const saveNewUsers = newUsers => {
   const User = db.model("User");
 
   newUsers.forEach(user => {
-    User.register(new User(user), user.password || '1234', function(err) {
+    User.register(new User(user), user.password || "1234", function(err) {
       if (err) {
-        console.error('error saving user', err);
+        console.error("error saving user", err);
       }
     });
   });
@@ -31,14 +31,14 @@ module.exports = (dir, headerRowIndex) => {
       const done = filename.split(".")[0] === "done";
 
       // reset seed file
-      if (filename === 'done.seed.csv') {
+      if (filename === "done.seed.csv") {
         const currentFilename = path.join(dir, filename);
-        const newFilename = path.join(dir, 'seed.csv');
+        const newFilename = path.join(dir, "seed.csv");
         fs.rename(currentFilename, newFilename, err => {
           if (err) {
             console.error(err);
           }
-        })
+        });
       }
 
       if (!done) {
@@ -55,7 +55,7 @@ module.exports = (dir, headerRowIndex) => {
   fs.watch(dir, (eventType, filename) => {
     fs.stat(path.join(dir, filename), (err, stats) => {
       if (err) {
-        console.error("file doesn't exist");
+        console.error(err);
       } else {
         const done = filename.split(".")[0] === "done";
 
