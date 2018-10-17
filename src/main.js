@@ -19,7 +19,8 @@ const store = new Vuex.Store({
   state: {
     img: require("./img/shrug.jpg"),
     currentView: views.login,
-    user: {}
+    user: {},
+    campaigns: []
   },
   mutations: {
     setImage(state, payload) {
@@ -30,6 +31,27 @@ const store = new Vuex.Store({
     },
     setUser(state, payload) {
       state.user = payload.user;
+    },
+    updateCampaigns(state, payload) {
+      state.campaigns = payload.campaigns;
+    },
+    changePriority(state, payload) {
+      const { _id, val, campaign_priority } = payload;
+      const campaigns = state.campaigns.slice();
+
+      state.campaigns = campaigns
+        .map(c => {
+          if (c._id === _id) {
+            c.campaign_priority += val;
+          } else if (c.campaign_priority === campaign_priority + val) {
+            c.campaign_priority -= val;
+          }
+
+          return c;
+        })
+        .sort((a, b) => {
+          return a.campaign_priority > b.campaign_priority;
+        });
     }
   }
 });

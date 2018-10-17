@@ -17,16 +17,21 @@ userSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model("User", userSchema);
 
-User.register(new User({ username: "admin", role: "admin" }), "1234", function(
-  err
-) {
-  if (err) {
-    console.error("error saving admin", err);
-  }
+User.deleteMany({}, () => {
+  console.log("USERS CLEARED -- NEED TO REMOVE FOR PRODUCTION");
+  User.register(
+    new User({ username: "admin", role: "admin" }),
+    "1234",
+    function(err) {
+      if (err) {
+        console.error("error saving admin", err);
+      }
+    }
+  );
 });
 
 const campaignSchema = new Schema({
-  campaign_priority: { type: Number, unique: true, required: true },
+  campaign_priority: { type: Number, unique: false },
   geo: String,
   industry: String,
   company_size: {
@@ -72,8 +77,37 @@ const getCampaignImg = user => {
     .sort({ campaign_priority: 1 });
 };
 
+const getCampaigns = () => {
+  return Campaign.find({})
+    .sort({ campaign_priority: 1 })
+    .exec();
+};
+
+const updateCampaigns = campaigns => {
+  campaigns.forEach(campaign => {
+    let { _id, campaign_priority } = campaign;
+
+    Campaign.findById(_id, (err, campaign) => {
+      if (err) {
+        console.error(err);
+      } else {
+        campaign.campaign_priority = campaign_priority;
+        campaign.save((err, data) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log(data);
+          }
+        });
+      }
+    });
+  });
+};
+
 module.exports = {
   User,
   Campaign,
-  getCampaignImg
+  getCampaignImg,
+  getCampaigns,
+  updateCampaigns
 };

@@ -4,7 +4,7 @@
       <nav class="navbar">
         <div class="container">
           <div class="navbar-brand">
-            <a class="navbar-item" @click="handleClick">
+            <a class="navbar-item" @click="logout">
               Logout
             </a>
           </div>
@@ -29,7 +29,7 @@
 
 <script>
 import Navbar from "./Navbar";
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 import axios from "axios";
 
 export default {
@@ -44,12 +44,12 @@ export default {
     }),
   },
   methods: {
-    handleClick: function() {
+    logout: function() {
       axios.post("/logout")
         .catch((err) => {
           console.log('fail');
         })
-        .then((res) => {
+        .then(() => {
           this.$store.commit({
             type: 'changeView',
             view: 'login'

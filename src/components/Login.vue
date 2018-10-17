@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import swal from 'sweetalert2';
 
 export default {
   name: "login",
@@ -39,16 +40,31 @@ export default {
   methods: {
     submitForm: function() {
       axios.post(`/login?username=${this.username}&password=${this.password}`)
-        .catch((err) => {
-          console.log('fail');
+        .catch(() => {
+          swal({
+            title: "Oops, something went wrong.",
+            text: "Are you sure the username and password are correct?",
+            type: "warning",
+            showConfirmButton: false,
+            timer: 2500
+          });
         })
         .then((res) => {
           const { user } = res.data;
           let view = "dashboard";
-          console.log(res.data)
 
           if (user.hasOwnProperty("role") && user.role === "admin") {
             view = "admin";
+            axios.get("/campaigns")
+              .catch((err) => {
+                console.log(err);
+              })
+              .then((res) => {
+                this.$store.commit({
+                  type: 'updateCampaigns',
+                  campaigns: res.data
+                });
+              });
           }
 
           this.$store.commit({

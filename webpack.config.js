@@ -62,7 +62,9 @@ module.exports = {
     overlay: true,
     proxy: {
       "/login": "http://localhost:3000",
-      "/logout": "http://localhost:3000"
+      "/logout": "http://localhost:3000",
+      "/campaigns": "http://localhost:3000",
+      "/update_campaigns": "http://localhost:3000"
     }
   },
   performance: {
