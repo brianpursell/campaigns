@@ -55,7 +55,7 @@ module.exports = (dir, headerRowIndex) => {
   fs.watch(dir, (eventType, filename) => {
     fs.stat(path.join(dir, filename), (err, stats) => {
       if (err) {
-        console.error(err);
+        // console.error(err);
       } else {
         const done = filename.split(".")[0] === "done";
 

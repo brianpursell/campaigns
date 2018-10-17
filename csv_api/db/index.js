@@ -13,17 +13,18 @@ const userSchema = new Schema({
   ip: String,
   geo: String,
   industry: String,
-  company_size: String
+  company_size: {
+    min: Number,
+    max: Number
+  }
 });
 
 userSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model("User", userSchema);
 
-if (process.env.NODE_ENV === "development") {
-  User.deleteMany({}, () => {
-    console.log("USERS CLEARED");
-  });
-}
+User.deleteMany({}, () => {
+  console.log("USERS CLEARED -- NEED TO REMOVE FOR PRODUCTION");
+});
 
 module.exports = mongoose;

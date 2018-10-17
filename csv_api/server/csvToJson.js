@@ -16,7 +16,26 @@ const jsonify = (header, body) => {
       obj[header[i]] = val;
     });
 
-    if (!obj.hasOwnProperty('username')) {
+    // parse company size string
+    if (obj.hasOwnProperty("company_size")) {
+      const companySize = obj.company_size;
+      const lastChar = companySize.length - 1;
+      if (companySize[lastChar] === "+") {
+        obj.company_size = {
+          min: Number(companySize.slice(0, lastChar)),
+          max: Number.MAX_VALUE
+        };
+      } else {
+        const range = obj.company_size.split("-");
+        obj.company_size = {
+          min: Number(range[0]),
+          max: Number(range[1])
+        };
+      }
+    }
+
+    // for dev: if username not provided concat 'user' with user_id
+    if (!obj.hasOwnProperty("username")) {
       obj.username = `user${obj.user_id}`;
     }
 

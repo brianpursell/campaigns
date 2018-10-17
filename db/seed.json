@@ -1,0 +1,38 @@
+[
+  {
+    "campaign_priority": 1,
+    "geo": "austin",
+    "img_src": "Austin.jpg"
+  },
+  {
+    "campaign_priority": 2,
+    "geo": "san francisco",
+    "img_src": "SanFrancisco.jpg"
+  },
+  {
+    "campaign_priority": 3,
+    "industry": "software",
+    "img_src": "Software.jpg"
+  },
+  {
+    "campaign_priority": 4,
+    "industry": "sports",
+    "img_src": "Sports.jpg"
+  },
+  {
+    "campaign_priority": 5,
+    "company_size": {
+      "min": 0,
+      "max": 50
+    },
+    "img_src": "proof.png"
+  },
+  {
+    "campaign_priority": 6,
+    "company_size": {
+      "min": 100,
+      "max": 200
+    },
+    "img_src": "smb.jpg"
+  }
+]
