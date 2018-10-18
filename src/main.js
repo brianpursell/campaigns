@@ -50,7 +50,7 @@ const store = new Vuex.Store({
           return c;
         })
         .sort((a, b) => {
-          return a.campaign_priority > b.campaign_priority;
+          return a.campaign_priority - b.campaign_priority;
         });
     }
   }
